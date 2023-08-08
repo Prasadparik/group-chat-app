@@ -54,7 +54,7 @@ const logInUser = async (req, res) => {
           token: generateAccessToken({
             userId: result._id,
             userName: result.userName,
-            ispremiumuser: result.ispremiumuser,
+            // ispremiumuser: result.ispremiumuser,
           }),
         });
       } else {
