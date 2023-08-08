@@ -26,6 +26,7 @@ const addUser = async (req, res) => {
       await User.create({
         userName: req.body.userName,
         userEmail: req.body.userEmail,
+        userPhone: req.body.userPhone,
         userPassword: hash,
       });
       return res.sendStatus(200);
