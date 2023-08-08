@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group Chat App</title>
+    <!-- Link to Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS for WhatsApp-like theme -->
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #f2f2f2;
+      }
+      .card {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .card-header {
+        background-color: #075e54;
+        color: #fff;
+        border-bottom: none;
+      }
+      .messages {
+        height: 70vh;
+        flex-grow: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        scrollbar-width: thin; /* For Firefox */
+        scrollbar-color: #128c7e #ededed;
+      }
+      .input-group {
+        background-color: #ededed;
+        padding: 0.4rem;
+        border-radius: 0.5rem;
+      }
+      .form-control {
+        border: none;
+        border-radius: 0;
+      }
+      .btn-primary {
+        background-color: #128c7e;
+        border: none;
+        border-radius: 0.3rem;
+      }
+      .card-body {
+        display: flex;
+        flex-direction: column;
+      }
+      .message.incoming {
+        text-align: left;
+      }
+
+      .message.outgoing {
+        text-align: right;
+      }
+
+      .message-text {
+        background-color: #eafff147;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        max-width: 70%;
+        font-weight: 500;
+      }
+
+      .message-time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+      }
+      .message.outgoing .message-text {
+        background-color: #b6ffb1; /* Light green background for outgoing messages */
+      }
+      .message-name {
+        font-size: small;
+      }
+
+      .messages::-webkit-scrollbar {
+        width: 8px; /* Width of the entire scrollbar */
+      }
+
+      .messages::-webkit-scrollbar-thumb {
+        background-color: #128c7e; /* Color of the thumb */
+        border-radius: 8px; /* Rounded corners of the thumb */
+      }
+
+      .messages::-webkit-scrollbar-track {
+        background-color: #ededed; /* Color of the track */
+        border-radius: 8px; /* Rounded corners of the track */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-header">Group Chat</div>
+            <div class="card-body">
+              <div class="messages">
+                <!-- Messages will be dynamically added here -->
+                <div class="message incoming">
+                  <div class="message-name">Suraj Parik</div>
+                  <div class="message-text">Hey, how's it going?</div>
+                  <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message incoming">
+                  <div class="message-name">Suraj Parik</div>
+                  <div class="message-text">Hey, how's it going?</div>
+                  <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div class="message-text">Hi there! Doing well, thanks.</div>
+                  <div class="message-time">10:32 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div class="message-text">Hi there! Doing well, thanks.</div>
+                  <div class="message-time">10:32 AM</div>
+                </div>
+                <div class="message incoming">
+                  <div class="message-name">Suraj Parik</div>
+                  <div class="message-text">Hey, how's it going?</div>
+                  <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message incoming">
+                  <div class="message-name">Suraj Parik</div>
+                  <div class="message-text">Hey, how's it going?</div>
+                  <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div class="message-text">Hi there! Doing well, thanks.</div>
+                  <div class="message-time">10:32 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div class="message-text">Hi there! Doing well, thanks.</div>
+                  <div class="message-time">10:32 AM</div>
+                </div>
+                <!-- -------------------------------------- -->
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Type your message..."
+                />
+                <button class="btn btn-primary" id="sendButton">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to Bootstrap JS and any additional JavaScript for chat functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script></script>
+  </body>
+</html>
