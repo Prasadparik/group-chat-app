@@ -35,7 +35,9 @@ async function userLogIn(e) {
     localStorage.setItem("userName", result.data.data.userName);
     localStorage.setItem("ispremiumuser", result.data.data.ispremiumuser);
     console.log(`logged in successfully `);
-    // location.href = "../index.html";
+    setTimeout(() => {
+      location.href = "../home/home.html";
+    }, 2000);
   } catch (error) {
     console.log("Error", error);
     let notifyText = "";

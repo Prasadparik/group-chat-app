@@ -19,18 +19,25 @@ app.use(bodyParser.json());
 
 // importing Models ----------------------------------
 const User = require("./models/user");
+const Chat = require("./models/chat");
 
 // Routes ---------------------------------------------
 
 // importing routers
 const userRouter = require("./routes/user");
+const chatRouter = require("./routes/chat");
 
 // User Routes
 app.use("/api/", userRouter);
 
+// Chat Routes
+app.use("/api/", chatRouter);
+
 // DATABASE RELATIONS ------------------------------
 
 // TODO:  add database relations here .....
+User.hasMany(Chat);
+Chat.belongsTo(User);
 
 // server running on Port ------------------------------
 

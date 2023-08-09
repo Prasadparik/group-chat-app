@@ -107,9 +107,9 @@
           <div class="card">
             <div class="card-header">Group Chat</div>
             <div class="card-body">
-              <div class="messages">
+              <div id="chatBox" class="messages">
                 <!-- Messages will be dynamically added here -->
-                <div class="message incoming">
+                <!-- <div class="message incoming">
                   <div class="message-name">Suraj Parik</div>
                   <div class="message-text">Hey, how's it going?</div>
                   <div class="message-time">10:30 AM</div>
@@ -144,17 +144,19 @@
                 <div class="message outgoing">
                   <div class="message-text">Hi there! Doing well, thanks.</div>
                   <div class="message-time">10:32 AM</div>
-                </div>
+                </div> -->
                 <!-- -------------------------------------- -->
               </div>
               <form id="chat-form" class="input-group mb-3">
                 <input
-                  id="chat-message"
+                  id="chatMessage"
                   type="text"
                   class="form-control"
                   placeholder="Type your message..."
                 />
-                <button class="btn btn-primary" id="sendButton">Send</button>
+                <button type="submit" class="btn btn-primary" id="sendButton">
+                  Send
+                </button>
               </form>
             </div>
           </div>
@@ -163,7 +165,8 @@
     </div>
 
     <!-- Link to Bootstrap JS and any additional JavaScript for chat functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script></script>
+    <script src="./home.js"></script>
   </body>
 </html>

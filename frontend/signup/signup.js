@@ -38,8 +38,9 @@ async function userSignUp(e) {
     console.log("Error", error);
     toastMessage("danger", error.response.data);
   }
-
-  //   location.href = "../login/login.html";
+  setTimeout(() => {
+    location.href = "../login/login.html";
+  }, 2000);
 
   //   cleaning input fields
   signUpForm.userName.value = "";
