@@ -34,21 +34,51 @@ async function sendChat(e) {
   //   cleaning input fields
   chatForm.chatMessage.value = "";
   document.getElementById("chatBox").innerHTML = "";
-  getChats();
+  storeChatLS();
 }
 
+// Store Chat in Localstorage ========================================
+
+async function storeChatLS(chatData) {
+  // store chat in localStorage
+  // await localStorage.setItem("chats", JSON.stringify(chatData));
+  // getting  chat from localStorage
+  let Allchats = JSON.parse(localStorage.getItem("chats"));
+  // console.log(Allchats.length);
+
+  // get last chat Id
+  let lastChatId =
+    Allchats === null || Allchats.length === 0 || Allchats.length === undefined
+      ? 0
+      : Allchats[Allchats.length - 1]._id;
+  console.log("lastChatId >>>> ", lastChatId);
+
+  // getting new chat from Backend
+
+  getChats(lastChatId);
+}
+storeChatLS();
 //  Getting chat from Backend =======================================================
 
-async function getChats() {
+async function getChats(lastChatId) {
   try {
-    const response = await axios.get(`${baseUrl}getchats`);
-    console.log("DATA:", response);
-    showChatOnFE(response.data);
+    const response = await axios.get(
+      `${baseUrl}getchats?lastChatId=${lastChatId}`
+    );
+    console.log("DATA from LastChatId  >> :", response);
+
+    // adding new chat to localStorage
+    let oldChat = JSON.parse(localStorage.getItem("chats"));
+    let updatedChat = [...oldChat, ...response.data];
+    await localStorage.setItem("chats", JSON.stringify(updatedChat));
+
+    // showing chat on frontend
+    showChatOnFE(JSON.parse(localStorage.getItem("chats")));
   } catch (error) {
     console.log(error);
   }
 }
-getChats();
+// getChats();
 
 // ==================================================================
 
