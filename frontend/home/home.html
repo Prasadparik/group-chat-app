@@ -99,9 +99,60 @@
         background-color: #ededed; /* Color of the track */
         border-radius: 8px; /* Rounded corners of the track */
       }
+
+      /* navbar ============================*/
+
+      .navbar {
+        background-color: #128c7e; /* WhatsApp green color */
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        color: #ffffff;
+      }
+      .navbar-toggler-icon {
+        background-color: #ffffff;
+      }
+      .admin-btn {
+        background-color: #ffffff;
+        color: #128c7e;
+        border: none;
+      }
+      .admin-btn:hover {
+        background-color: #d1d1d1;
+      }
     </style>
   </head>
   <body>
+    <!-- Nav bar  =========================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Group Chat</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <button class="btn admin-btn">
+                <a href="../admin/admin.html">Admin Page</a>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Nav bar  =========================================== -->
+
     <div class="container mt-5">
       <div class="row">
         <div class="col-md-4">

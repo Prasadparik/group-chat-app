@@ -3,61 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatsApp Theme Admin Page</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="dummy.css" />
-    <!-- Custom CSS -->
-    <title>Group Chat System</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .navbar {
+        background-color: #25d366; /* WhatsApp green color */
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        color: #ffffff;
+      }
+      .navbar-toggler-icon {
+        background-color: #ffffff;
+      }
+      .admin-btn {
+        background-color: #ffffff;
+        color: #25d366;
+        border: none;
+      }
+      .admin-btn:hover {
+        background-color: #d1d1d1;
+      }
+      .content {
+        padding: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row vh-100">
-        <div class="col-md-4 bg-light border-right">
-          <button class="btn btn-success btn-block mt-3">
-            Create New Group
-          </button>
-          <!-- List of Groups on the left -->
-          <h4 class="p-3 mb-0">Your Groups:</h4>
-
-          <ul class="list-group list-group-flush">
-            <li
-              class="list-group-item d-flex justify-content-between align-items-center"
-            >
-              Group 1
-              <span class="badge bg-primary">3</span>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">WhatsApp Admin</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <button class="btn admin-btn">Admin Page</button>
             </li>
-            <li
-              class="list-group-item d-flex justify-content-between align-items-center"
-            >
-              Group 2
-              <span class="badge bg-primary">5</span>
-            </li>
-            <!-- Add more group items here -->
           </ul>
         </div>
-        <div class="col-md-8 p-0">
-          <!-- Group Chat Area -->
-          <div
-            class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom"
-          >
-            <h3 class="m-0">Group 1</h3>
-            <button class="btn btn-primary">Invite</button>
-          </div>
-          <div class="chat-container p-4">
-            <!-- Chat messages can be displayed here -->
-          </div>
-          <div class="input-container p-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Type your message..."
-            />
-            <button class="btn btn-primary">Send</button>
-          </div>
-        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="content">
+        <!-- Your content goes here -->
+        <h2>Welcome to WhatsApp Admin Page</h2>
+        <p>This is a sample content section for your admin page.</p>
       </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

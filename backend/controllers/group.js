@@ -11,14 +11,15 @@ const createGroup = async (req, res) => {
   console.log("req.body.groupName >>>>", req.body.groupName, req.user._id);
   try {
     let data = await Group.findOrCreate({
-      where: { groupName: req.body.groupName },
+      where: { groupName: req.query.groupName || req.body.groupName },
       defaults: {
         groupName: req.body.groupName,
+        groupAdmin: req.user._id,
       },
     });
 
     // adding relation in junction table
-    await data[0].addUser(req.user._id);
+    await data[0].addUser(req.query.userId || req.user._id);
     res.json({ message: "Group Created!!", data: data });
   } catch (error) {
     res.json(error);
@@ -44,10 +45,54 @@ const getGroup = async (req, res) => {
           },
         },
       ],
+      where: {
+        groupAdmin: userId,
+      },
     });
 
-    console.log(" ####################### FILTERED GRP LIST >>>> ");
     res.status(200).json(groups);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+// getGroupUsers=================================
+
+const getGroupUsers = async (req, res) => {
+  try {
+    const groupId = req.query.groupId;
+
+    const groups = await User.findAll({
+      include: [
+        {
+          model: Group,
+          where: {
+            _id: groupId,
+          },
+          through: {
+            model: GroupItems,
+            attributes: [], // Exclude join table attributes from result
+          },
+        },
+      ],
+    });
+
+    res.json({ message: "SUCCESS !! ", result: groups });
+  } catch (error) {}
+};
+
+// removeUserFromGroup =================================================
+
+const removeUserFromGroup = async (req, res) => {
+  try {
+    const result = await GroupItems.destroy({
+      where: {
+        userId: req.query.userId,
+        groupId: req.query.groupId,
+      },
+    });
+
+    res.json(result);
   } catch (error) {
     res.json(error);
   }
@@ -56,4 +101,6 @@ const getGroup = async (req, res) => {
 module.exports = {
   createGroup,
   getGroup,
+  getGroupUsers,
+  removeUserFromGroup,
 };

@@ -11,6 +11,7 @@ const Group = sequelize.define("group", {
     primaryKey: true,
   },
   groupName: { type: Sequelize.STRING, allowNull: false },
+  groupAdmin: { type: Sequelize.INTEGER, allowNull: false },
 });
 
 module.exports = Group;
