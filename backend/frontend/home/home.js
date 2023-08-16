@@ -4,6 +4,14 @@ const baseUrl = `http://localhost:3000/api/`;
 const chatForm = document.getElementById("chat-form");
 const groupForm = document.getElementById("group-form");
 
+var socket = io();
+
+socket.on("message", (message) => {
+  console.log("MSG BE >>", message);
+  document.getElementById("chatBox").innerHTML = "";
+  getChats();
+});
+
 // form submit event -------------------------------
 
 groupForm.addEventListener("submit", createGroup);
@@ -64,10 +72,13 @@ async function sendChat(e) {
     console.log("Error", error);
   }
 
+  // socket ----------
+  socket.emit("message", chatMessage);
+
   //   cleaning input fields
   chatForm.chatMessage.value = "";
-  document.getElementById("chatBox").innerHTML = "";
-  getChats();
+  document.getElementById("chatBox").innerText = "";
+  // getChats();
 }
 
 // Store Chat in Localstorage ========================================
@@ -159,11 +170,11 @@ function showChatOnFE(chatData) {
       "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold bg-success-subtle m-1 rounded";
     li.appendChild(document.createTextNode(data.userChat));
 
-    let span = document.createElement("span");
-    span.className = "badge bg-light-subtle p-1 px-4 text-dark rounded-pill";
-    span.appendChild(document.createTextNode(dateToTime(data.updatedAt)));
+    // let span = document.createElement("span");
+    // span.className = "badge bg-light-subtle p-1 px-4 text-dark rounded-pill";
+    // span.appendChild(document.createTextNode(dateToTime(data.updatedAt)));
 
-    li.appendChild(span);
+    // li.appendChild(span);
 
     box.appendChild(document.createTextNode(data.userName));
     box.appendChild(li);

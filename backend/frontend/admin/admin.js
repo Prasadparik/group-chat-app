@@ -13,7 +13,7 @@ async function getGroupList() {
   const token = localStorage.getItem("userIdToken");
 
   try {
-    const response = await axios.get(`${baseUrl}getallgroups`, {
+    const response = await axios.get(`${baseUrl}getadminsgroups`, {
       headers: { Authorization: token },
     });
     console.log("GROUP LIST  >> :", response);

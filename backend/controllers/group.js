@@ -45,6 +45,35 @@ const getGroup = async (req, res) => {
           },
         },
       ],
+      // where: {
+      //   groupAdmin: userId,
+      // },
+    });
+
+    res.status(200).json(groups);
+  } catch (error) {
+    res.json(error);
+  }
+};
+// ==================================================================
+
+const getAdminGroup = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const groups = await Group.findAll({
+      include: [
+        {
+          model: User,
+          where: {
+            _id: userId,
+          },
+          through: {
+            model: GroupItems,
+            attributes: [], // Exclude join table attributes from result
+          },
+        },
+      ],
       where: {
         groupAdmin: userId,
       },
@@ -103,4 +132,5 @@ module.exports = {
   getGroup,
   getGroupUsers,
   removeUserFromGroup,
+  getAdminGroup,
 };
