@@ -1,5 +1,5 @@
 // API Call --------------------------------
-const baseUrl = `http://localhost:5000/api/`;
+const baseUrl = `http://16.171.170.198:5000/api/`;
 
 const chatForm = document.getElementById("chat-form");
 const groupForm = document.getElementById("group-form");

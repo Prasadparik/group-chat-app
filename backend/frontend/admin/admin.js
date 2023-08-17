@@ -1,5 +1,5 @@
 // API Call --------------------------------
-const baseUrl = `http://localhost:5000/api/`;
+const baseUrl = `http://16.171.170.198:5000/api/`;
 
 let addUserFrom = document.getElementById("adduserform");
 let userListForm = document.getElementById("userListForm");
