@@ -56,12 +56,6 @@ app.use("/api/", chatRouter);
 // Group Routes
 app.use("/api/", groupRouter);
 
-// Serve uploaded files
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "frontend", "uploads"))
-);
-
 // Frontend Routes
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, `frontend/${req.url}`));
