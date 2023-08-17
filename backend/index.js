@@ -56,7 +56,7 @@ app.use("/api/", chatRouter);
 // Group Routes
 app.use("/api/", groupRouter);
 
-// Frontend Routes
+// Frontend Route
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, `frontend/${req.url}`));
 });
