@@ -80,10 +80,10 @@ const runServer = async () => {
   try {
     await sequelize.sync({ force: false });
     server.listen(
-      3000,
+      5000,
       console.log(`
     ===================================================================================
-                         SERVER RUNNING ON PORT => 3000
+                         SERVER RUNNING ON PORT => 5000
     ===================================================================================
     
     `)
