@@ -188,45 +188,10 @@
             <div id="group-title" class="card-header">Group Chat</div>
             <div class="card-body">
               <div id="chatBox" class="messages">
-                <!-- Messages will be dynamically added here -->
-                <!-- <div class="message incoming">
-                  <div class="message-name">Suraj Parik</div>
-                  <div class="message-text">Hey, how's it going?</div>
-                  <div class="message-time">10:30 AM</div>
-                </div>
-                <div class="message incoming">
-                  <div class="message-name">Suraj Parik</div>
-                  <div class="message-text">Hey, how's it going?</div>
-                  <div class="message-time">10:30 AM</div>
-                </div>
-                <div class="message outgoing">
-                  <div class="message-text">Hi there! Doing well, thanks.</div>
-                  <div class="message-time">10:32 AM</div>
-                </div>
-                <div class="message outgoing">
-                  <div class="message-text">Hi there! Doing well, thanks.</div>
-                  <div class="message-time">10:32 AM</div>
-                </div>
-                <div class="message incoming">
-                  <div class="message-name">Suraj Parik</div>
-                  <div class="message-text">Hey, how's it going?</div>
-                  <div class="message-time">10:30 AM</div>
-                </div>
-                <div class="message incoming">
-                  <div class="message-name">Suraj Parik</div>
-                  <div class="message-text">Hey, how's it going?</div>
-                  <div class="message-time">10:30 AM</div>
-                </div>
-                <div class="message outgoing">
-                  <div class="message-text">Hi there! Doing well, thanks.</div>
-                  <div class="message-time">10:32 AM</div>
-                </div>
-                <div class="message outgoing">
-                  <div class="message-text">Hi there! Doing well, thanks.</div>
-                  <div class="message-time">10:32 AM</div>
-                </div> -->
                 <!-- -------------------------------------- -->
               </div>
+              <!-- Add a div to display the selected media file path -->
+              <div id="selectedMediaPath"></div>
               <form id="chat-form" class="input-group mb-3">
                 <input
                   id="chatMessage"
@@ -235,6 +200,15 @@
                   placeholder="Type your message..."
                 />
                 <button type="submit" class="btn btn-primary">Send</button>
+                <label for="mediaInput" class="btn btn-secondary">
+                  Send Media
+                  <input
+                    id="mediaInput"
+                    type="file"
+                    accept="image/*, video/*, audio/*"
+                    style="display: none"
+                  />
+                </label>
               </form>
             </div>
           </div>

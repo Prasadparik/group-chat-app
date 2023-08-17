@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const fileUpload = require("express-fileupload");
+require("dotenv").config();
 
 // DataBase -------------------------------------------
 const sequelize = require("./database");
@@ -12,6 +14,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// Use file upload middleware
+app.use(fileUpload());
 
 // Socket.io------------
 const http = require("http");
@@ -51,6 +55,12 @@ app.use("/api/", chatRouter);
 
 // Group Routes
 app.use("/api/", groupRouter);
+
+// Serve uploaded files
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "frontend", "uploads"))
+);
 
 // Frontend Routes
 app.use((req, res) => {

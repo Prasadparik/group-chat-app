@@ -3,6 +3,7 @@ const baseUrl = `http://localhost:3000/api/`;
 
 const chatForm = document.getElementById("chat-form");
 const groupForm = document.getElementById("group-form");
+const mediaInput = document.getElementById("mediaInput");
 
 var socket = io();
 
@@ -10,12 +11,49 @@ socket.on("message", (message) => {
   console.log("MSG BE >>", message);
   document.getElementById("chatBox").innerHTML = "";
   getChats();
+  sendMediaChat();
 });
 
 // form submit event -------------------------------
 
 groupForm.addEventListener("submit", createGroup);
 chatForm.addEventListener("submit", sendChat);
+
+mediaInput.addEventListener("change", sendMediaChat);
+
+async function sendMediaChat(e) {
+  const mediaFile = e.target.files[0];
+  if (mediaFile) {
+    // send media to BE
+    const token = localStorage.getItem("userIdToken");
+    const groupId = localStorage.getItem("groupId");
+
+    try {
+      // Create FormData and append the media file
+      const formData = new FormData();
+      formData.append("media", mediaFile);
+      console.log("MEDIA NAME >>", mediaFile);
+
+      // Send the media file to the backend using Axios
+      const response = await axios.post(
+        `${baseUrl}sendmedia?group=${groupId}`,
+        { media: mediaFile },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log("MEDIA RES >>", response);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    selectedMediaPath.textContent = ""; // Clear the content if no file selected
+  }
+}
 
 async function createGroup(e) {
   e.preventDefault();
@@ -159,26 +197,45 @@ function dateToTime(data) {
   return formattedTime;
 }
 
+function isURL(str) {
+  // Regular expression pattern for a simple URL format
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(str);
+}
+
 // show chat on frontend ============================================
 let messageBox = document.getElementById("chatBox");
 
 function showChatOnFE(chatData) {
   chatData.forEach((data) => {
-    let box = document.createElement("div");
-    let li = document.createElement("li");
-    li.className =
-      "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold bg-success-subtle m-1 rounded";
-    li.appendChild(document.createTextNode(data.userChat));
+    if (isURL(data.userChat)) {
+      console.log(`THIS CHAT IS URL ${data._id}`);
+      let box = document.createElement("div");
+      box.setAttribute("width", "fit-content");
 
-    // let span = document.createElement("span");
-    // span.className = "badge bg-light-subtle p-1 px-4 text-dark rounded-pill";
-    // span.appendChild(document.createTextNode(dateToTime(data.updatedAt)));
+      let li = document.createElement("li");
+      li.className =
+        "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold  m-1 rounded";
 
-    // li.appendChild(span);
+      let img = document.createElement("img");
+      img.setAttribute("src", `${data.userChat}`);
+      img.setAttribute("width", "300");
+      img.className = "border-5 border-primary-subtle rounded";
 
-    box.appendChild(document.createTextNode(data.userName));
-    box.appendChild(li);
-    document.getElementById("chatBox").appendChild(box);
+      li.appendChild(img);
+      box.appendChild(document.createTextNode(data.userName));
+      box.appendChild(li);
+      document.getElementById("chatBox").appendChild(box);
+    } else {
+      let box = document.createElement("div");
+      let li = document.createElement("li");
+      li.className =
+        "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold bg-success-subtle m-1 rounded";
+      li.appendChild(document.createTextNode(data.userChat));
+      box.appendChild(document.createTextNode(data.userName));
+      box.appendChild(li);
+      document.getElementById("chatBox").appendChild(box);
+    }
   });
 }
 
