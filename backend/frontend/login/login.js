@@ -33,7 +33,8 @@ async function userLogIn(e) {
     console.log("TOKEN :", result.data.data.userName);
     localStorage.setItem("userIdToken", result.data.token);
     localStorage.setItem("userName", result.data.data.userName);
-    localStorage.setItem("ispremiumuser", result.data.data.ispremiumuser);
+    localStorage.setItem("userEmail", result.data.data.userEmail);
+    localStorage.setItem("userId", result.data.data._id);
     console.log(`logged in successfully `);
     setTimeout(() => {
       location.href = "../home/home.html";

@@ -1,0 +1,140 @@
+/* Colors */
+:root {
+  --discord-purple: #7289da;
+  --discord-dark: #dee2ec42;
+  --discord-light: #ffffff;
+  --discord-text: #b0b6bb;
+}
+
+* {
+  margin: 0 !important;
+}
+body {
+  background-color: var(--discord-dark);
+  color: var(--discord-light);
+  max-height: 100vh !important;
+  overflow-y: hidden;
+}
+
+.navbar {
+  background-color: var(--discord-purple);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: var(--discord-light);
+}
+
+.navbar-toggler-icon {
+  background-color: var(--discord-light);
+}
+
+.btn-admin {
+  background-color: var(--discord-light);
+  color: var(--discord-purple);
+  border: none;
+}
+
+.btn-admin:hover {
+  background-color: #d1d1d1;
+}
+
+.card {
+  background-color: var(--discord-dark);
+  border: none;
+}
+
+.card-header {
+  background-color: var(--discord-purple);
+  color: var(--discord-light);
+  border-bottom: none;
+}
+
+.messages {
+  height: 70vh;
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--discord-purple) var(--discord-dark);
+}
+
+.input-group {
+  background-color: var(--discord-light);
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+}
+
+.form-control {
+  background-color: var(--discord-light);
+  border: none;
+  border-radius: 0;
+  color: var(--discord-dark);
+}
+
+.btn-primary {
+  background-color: var(--discord-purple);
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0.5rem 0;
+}
+
+.message.incoming {
+  align-items: flex-start;
+}
+
+.message.outgoing {
+  align-items: flex-end;
+}
+
+.message-text {
+  background-color: var(--discord-purple);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  max-width: 70%;
+  font-weight: 500;
+  color: var(--discord-light);
+}
+
+.message-time {
+  font-size: 12px;
+  color: var(--discord-text);
+  margin-top: 5px;
+}
+
+.message.outgoing .message-text {
+  background-color: var(--discord-light);
+}
+
+.message-name {
+  font-size: small;
+  color: var(--discord-text);
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+  direction: rtl;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: var(--discord-purple);
+  border-radius: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background-color: var(--discord-dark);
+  border-radius: 8px;
+}

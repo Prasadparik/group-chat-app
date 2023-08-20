@@ -4,14 +4,25 @@ const baseUrl = `http://16.171.170.198:5000/api/`;
 const chatForm = document.getElementById("chat-form");
 const groupForm = document.getElementById("group-form");
 const mediaInput = document.getElementById("mediaInput");
+const chatBox = document.getElementById("chatBox");
+
+// Localstorage ----------------------------
+const userNameLS = localStorage.getItem("userName");
+const userEmailLS = localStorage.getItem("userEmail");
+const userid = localStorage.getItem("userId");
+
+function scrollToBottom() {
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
 var socket = io();
-
 socket.on("message", (message) => {
   console.log("MSG BE >>", message);
   document.getElementById("chatBox").innerHTML = "";
-  getChats();
+
   sendMediaChat();
+  getChats();
+  document.getElementById("send-audio").play();
 });
 
 // form submit event -------------------------------
@@ -47,6 +58,8 @@ async function sendMediaChat(e) {
       );
 
       console.log("MEDIA RES >>", response);
+      // socket ----------
+      socket.emit("message", chatMessage);
     } catch (error) {
       console.log(error);
     }
@@ -207,36 +220,95 @@ function isURL(str) {
 let messageBox = document.getElementById("chatBox");
 
 function showChatOnFE(chatData) {
+  if (chatData.length === 0) {
+    console.log("EMPTY", chatData.length);
+    let img = document.createElement("img");
+    img.setAttribute("src", `./nochatbg.png`);
+    img.setAttribute("width", "auto");
+    img.setAttribute("style", "margin-left: 20% !important;  ");
+    img.setAttribute("height", "100%");
+    img.className = "border-5 border-primary-subtle rounded";
+
+    document.getElementById("chatBox").appendChild(img);
+  }
   chatData.forEach((data) => {
     if (isURL(data.userChat)) {
       console.log(`THIS CHAT IS URL ${data._id}`);
-      let box = document.createElement("div");
-      box.setAttribute("width", "fit-content");
+      if (userid == data.userId) {
+        let box = document.createElement("div");
+        box.className = "d-flex flex-column align-items-end";
 
-      let li = document.createElement("li");
-      li.className =
-        "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold  m-1 rounded";
+        box.setAttribute("width", "fit-content");
 
-      let img = document.createElement("img");
-      img.setAttribute("src", `${data.userChat}`);
-      img.setAttribute("width", "300");
-      img.className = "border-5 border-primary-subtle rounded";
+        let li = document.createElement("li");
+        li.className = "list-group-item p-3 fw-semibold  m-1 rounded shadow-sm";
+        li.setAttribute(
+          "style",
+          "width:max-content; background-color: #7289da"
+        );
+        let img = document.createElement("img");
+        img.setAttribute("src", `${data.userChat}`);
+        img.setAttribute("width", "300");
+        img.className = "border-5 border-primary-subtle rounded";
 
-      li.appendChild(img);
-      box.appendChild(document.createTextNode(data.userName));
-      box.appendChild(li);
-      document.getElementById("chatBox").appendChild(box);
+        li.appendChild(img);
+        box.appendChild(document.createTextNode(data.userName));
+        box.appendChild(li);
+        document.getElementById("chatBox").appendChild(box);
+      } else {
+        let box = document.createElement("div");
+        box.className = " mt-4";
+
+        box.setAttribute("width", "fit-content");
+
+        let li = document.createElement("li");
+        li.className =
+          "list-group-item p-3 fw-semibold bg-light-subtle m-1 rounded shadow-sm";
+        li.setAttribute("style", "width:max-content");
+        let img = document.createElement("img");
+        img.setAttribute("src", `${data.userChat}`);
+        img.setAttribute("width", "300");
+        img.className = "border-5 border-primary-subtle rounded";
+
+        li.appendChild(img);
+        box.appendChild(document.createTextNode(data.userName));
+        box.appendChild(li);
+        document.getElementById("chatBox").appendChild(box);
+      }
     } else {
-      let box = document.createElement("div");
-      let li = document.createElement("li");
-      li.className =
-        "list-group-item p-3 d-flex justify-content-between align-items-center fw-semibold bg-success-subtle m-1 rounded";
-      li.appendChild(document.createTextNode(data.userChat));
-      box.appendChild(document.createTextNode(data.userName));
-      box.appendChild(li);
-      document.getElementById("chatBox").appendChild(box);
+      const userid = localStorage.getItem("userId");
+
+      if (userid == data.userId) {
+        let box = document.createElement("div");
+        box.className = "d-flex flex-column align-items-end";
+        let li = document.createElement("li");
+        li.className =
+          "list-group-item p-3 fw-semibold text-light m-1 rounded px-3 shadow-sm";
+        li.style.width = "max-content"; // Alternatively, you can use li.setAttribute("style", "width:max-content");
+        li.style.float = "right"; // Apply the float property
+        li.setAttribute("style", "background-color: #7289da");
+
+        li.appendChild(document.createTextNode(data.userChat));
+        box.appendChild(document.createTextNode(data.userName));
+        box.appendChild(li);
+        document.getElementById("chatBox").appendChild(box);
+      } else {
+        let box = document.createElement("div");
+        box.className = "d-flex flex-column";
+        let li = document.createElement("li");
+        li.className =
+          "list-group-item p-3 fw-semibold bg-light m-1 rounded px-3 shadow-sm";
+        li.style.width = "max-content"; // Alternatively, you can use li.setAttribute("style", "width:max-content");
+        li.style.float = "right"; // Apply the float property
+
+        li.appendChild(document.createTextNode(data.userChat));
+        box.appendChild(document.createTextNode(data.userName));
+        box.appendChild(li);
+        document.getElementById("chatBox").appendChild(box);
+      }
     }
   });
+  scrollToBottom();
 }
 
 // Get group list from BE ==================================================
@@ -256,13 +328,16 @@ async function getGroupList() {
 }
 
 function showGroupListOnFE(data) {
+  const groupId = localStorage.getItem("groupId");
+
   data.forEach((data) => {
     let li = document.createElement("div");
-    li.className =
-      "list-group-item d-flex justify-content-between align-items-center p-4 shadow-sm";
+    li.className = `list-group-item d-flex justify-content-between align-items-center p-4 shadow-sm fw-medium my-1 rounded `;
     li.appendChild(document.createTextNode(data.groupName));
     li.setAttribute("id", data._id);
     document.getElementById("group-list").appendChild(li);
+
+    document.getElementById("group-title").innerText = `${data.groupName}`;
 
     // Step 1: Select the button element
     const button = document.getElementById(`${data._id}`);
@@ -271,7 +346,10 @@ function showGroupListOnFE(data) {
     function handleClick() {
       localStorage.setItem("groupId", data._id);
       document.getElementById("group-title").innerText = `${data.groupName}`;
+      document.getElementById(`${data._id}`).className =
+        "list-group-item d-flex justify-content-between align-items-center p-4 shadow-sm fw-medium my-1 rounded ";
       document.getElementById("chatBox").innerHTML = "";
+
       getChats();
     }
 

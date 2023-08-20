@@ -1,6 +1,15 @@
 // API Call --------------------------------
 const baseUrl = `http://16.171.170.198:5000/api/`;
 
+// Localstorage ----------------------------
+const userNameLS = localStorage.getItem("userName");
+const userEmailLS = localStorage.getItem("userEmail");
+const userid = localStorage.getItem("userId");
+
+document.getElementById("admin-name").innerText = `${userNameLS}`;
+document.getElementById("admin-email").innerText = `${userEmailLS}`;
+document.getElementById("admin-id").innerText = `${userid}`;
+
 let addUserFrom = document.getElementById("adduserform");
 let userListForm = document.getElementById("userListForm");
 
