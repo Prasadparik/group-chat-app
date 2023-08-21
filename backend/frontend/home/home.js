@@ -1,5 +1,6 @@
 // API Call --------------------------------
-const baseUrl = `http://16.171.170.198:5000/api/`;
+// const baseUrl = `http://16.171.170.198:5000/api/`;
+const baseUrl = `http://localhost:5000/api/`;
 
 const chatForm = document.getElementById("chat-form");
 const groupForm = document.getElementById("group-form");
@@ -10,6 +11,8 @@ const chatBox = document.getElementById("chatBox");
 const userNameLS = localStorage.getItem("userName");
 const userEmailLS = localStorage.getItem("userEmail");
 const userid = localStorage.getItem("userId");
+
+document.getElementById("user-name").innerText = `${userNameLS}`;
 
 function scrollToBottom() {
   chatBox.scrollTop = chatBox.scrollHeight;
@@ -232,7 +235,7 @@ function showChatOnFE(chatData) {
     document.getElementById("chatBox").appendChild(img);
   }
   chatData.forEach((data) => {
-    if (isURL(data.userChat)) {
+    if (detectURLType(data.userChat) === "image") {
       console.log(`THIS CHAT IS URL ${data._id}`);
       if (userid == data.userId) {
         let box = document.createElement("div");
@@ -255,6 +258,15 @@ function showChatOnFE(chatData) {
         box.appendChild(document.createTextNode(data.userName));
         box.appendChild(li);
         document.getElementById("chatBox").appendChild(box);
+      } else if (detectURLType(data.userChat) === "video") {
+        let box = document.createElement("div");
+        box.innerHTML = `
+        <video controls width="640" height="360">
+        <source src="https://youtu.be/3vSxHROQ4Hs" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+        `;
+        box.appendChild(document.createTextNode("THIS IS DOC !!"));
       } else {
         let box = document.createElement("div");
         box.className = " mt-4";
@@ -356,4 +368,24 @@ function showGroupListOnFE(data) {
     // Step 3: Attach the event handler to the button
     button.addEventListener("click", handleClick);
   });
+}
+
+// detectURLType =====================================
+
+function detectURLType(url) {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+  if (urlPattern.test(url)) {
+    if (/\.(jpg|jpeg|png|gif)$/i.test(url)) {
+      return "image";
+    } else if (/\.(mp4|avi|mov|webm)$/i.test(url)) {
+      return "video";
+    } else if (/\.(pdf|doc|docx|ppt|pptx)$/i.test(url)) {
+      return "document";
+    } else {
+      return "other";
+    }
+  } else {
+    return "invalid";
+  }
 }

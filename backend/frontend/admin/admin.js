@@ -1,14 +1,15 @@
 // API Call --------------------------------
-const baseUrl = `http://16.171.170.198:5000/api/`;
+// const baseUrl = `http://16.171.170.198:5000/api/`;
+const baseUrl = `http://localhost:5000/api/`;
 
 // Localstorage ----------------------------
 const userNameLS = localStorage.getItem("userName");
 const userEmailLS = localStorage.getItem("userEmail");
 const userid = localStorage.getItem("userId");
 
-document.getElementById("admin-name").innerText = `${userNameLS}`;
-document.getElementById("admin-email").innerText = `${userEmailLS}`;
-document.getElementById("admin-id").innerText = `${userid}`;
+document.getElementById("admin-name").innerText = `Name: ${userNameLS}`;
+document.getElementById("admin-email").innerText = `Email: ${userEmailLS}`;
+document.getElementById("admin-id").innerText = `Id: ${userid}`;
 
 let addUserFrom = document.getElementById("adduserform");
 let userListForm = document.getElementById("userListForm");
@@ -117,7 +118,7 @@ function showUserList(data) {
     let li = document.createElement("li");
     let btn = document.createElement("button");
     li.className =
-      "list-group-item d-flex justify-content-between align-items-center p-4 shadow-sm";
+      "list-group-item d-flex justify-content-between align-items-center p-3 shadow-sm m-1 fw-medium fs-6";
     btn.className = "btn btn-danger btn-sm";
     li.appendChild(document.createTextNode(data.userName));
     btn.appendChild(document.createTextNode("Remove"));

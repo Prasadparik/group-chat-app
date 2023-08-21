@@ -12,8 +12,6 @@
 body {
   background-color: var(--discord-dark);
   color: var(--discord-light);
-  max-height: 100vh !important;
-  overflow-y: hidden;
 }
 
 .navbar {
