@@ -1,6 +1,6 @@
 // API Call --------------------------------
-// const baseUrl = `http://16.171.170.198:5000/api/`;
-const baseUrl = `http://localhost:5000/api/`;
+const baseUrl = `http://16.171.170.198:5000/api/`;
+// const baseUrl = `http://localhost:5000/api/`;
 
 const signUpForm = document.getElementById("signup-form");
 const messageBox = document.getElementById("message-box");
